@@ -1,0 +1,24 @@
+Step 1: Make sure you have data in HDFS. Let's use the file you already created. We'll check if it's still there.
+->hadoop fs -ls test/
+
+Step 2: Start the Pig Grunt Shell In your main terminal, type pig and press Enter.
+->pig
+Your prompt will change to grunt>.
+Step 3: Run the Pig commands Type these commands one by one at the grunt> prompt:
+1.	Load the data:
+->lines = LOAD 'test/localfile.txt' AS (line:chararray);
+2.	Split into words:
+->words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
+3.	Group the words:
+->grouped = GROUP words BY word;
+4.	Count the words:
+->counts = FOREACH grouped GENERATE group AS word, COUNT(words) AS count;
+5.	Print the results:
+->DUMP counts;
+Output: You should see the result of the word count:
+(Hello,1)
+(Hadoop,1)
+
+To exit Pig, type:
+->quit
+ 
