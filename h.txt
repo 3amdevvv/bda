@@ -1,0 +1,43 @@
+1.	Start the HBase Shell:
+->hbase shell
+2.	Create a Table:
+This creates a table named employees with two Column Families: personal_data and job_data.
+->create 'employees', 'personal_data', 'job_data'
+3.	List Tables:
+This command shows all tables in HBase.
+->list
+Output:
+TABLE                                                                           
+employees                                                                       
+1 row(s)
+4.	Put Data (Insert/Update):
+This adds data to the table. 101 is the Row Key.
+->put 'employees', '101', 'personal_data:name', 'John Doe'
+->put 'employees', '101', 'personal_data:city', 'New York'
+->put 'employees', '101', 'job_data:title', 'Developer'
+->put 'employees', '101', 'job_data:salary', '70000'
+5.	Scan Table (Read All Data):
+o	This reads and displays all rows and columns in the employees table.
+->scan 'employees'
+Output:
+ROW         COLUMN+CELL      
+ 
+                                                       
+ 101        column=job_data:salary, timestamp=..., value=70000                     
+ 101        column=job_data:title, timestamp=..., value=Developer                 
+ 101        column=personal_data:city, timestamp=..., value=New York                
+ 101        column=personal_data:name, timestamp=..., value=John Doe                
+1 row(s)
+6.	Get Data (Read Specific Row):
+This retrieves all data for a specific Row Key (101).
+->get 'employees', '101'
+Output:
+COLUMN      CELL                                                                    
+ job_data:salary timestamp=..., value=70000                                           
+ job_data:title  timestamp=..., value=Developer                                          
+ personal_data:city timestamp=..., value=New York                                         
+ personal_data:name timestamp=..., value=John Doe                                         
+4 cell(s)
+
+
+ 
