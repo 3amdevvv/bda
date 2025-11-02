@@ -1,0 +1,26 @@
+Step 1: Create a local data file At the [hands-on@localhost ~]$ prompt, create a local CSV file.
+->echo "1,David,IT,60000" > data_for_hive.csv
+->echo "2,Susan,HR,55000" >> data_for_hive.csv
+->echo "3,Mike,IT,62000" >> data_for_hive.csv
+Step 2: Start the Hive Shell Now, type hive to enter the Hive command-line.
+->hive
+Your prompt will change to hive>.
+Step 3: Run the Hive commands Type these commands one by one at the hive> prompt:
+1.	Create a table:
+->CREATE TABLE employees (
+  id INT,
+  name STRING,
+  dept STRING,
+  salary INT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',';
+2.	Load the data:
+->LOAD DATA LOCAL INPATH 'data_for_hive.csv' OVERWRITE INTO TABLE employees;
+3.	Run analytics (queries):
+o	Select all data:
+->SELECT * FROM employees;
+o	Average salary by department:
+ 
+->SELECT dept, AVG(salary) FROM employees GROUP BY dept;
+To exit Hive, type quit; and press Enter.
