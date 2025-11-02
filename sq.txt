@@ -1,0 +1,22 @@
+Step 1: Log into MySQL
+type mysql -u root -p and just press Enter at the password prompt
+
+
+Step 2: Create New User & Database
+Copy and paste these commands into the mysql> prompt one by one.
+CREATE DATABASE testdb;
+CREATE USER 'sqoopuser'@'localhost' IDENTIFIED BY 'sqooppass';
+GRANT ALL PRIVILEGES ON testdb.* TO 'sqoopuser'@'localhost';
+USE testdb;
+CREATE TABLE employees (id INT, name VARCHAR(20));
+INSERT INTO employees VALUES (1, 'Alice'), (2, 'Bob');
+exit;
+(This takes you back to the main terminal)
+Step 3: Run Sqoop with the New User
+sqoop import --connect jdbc:mysql://localhost/testdb --username 'sqoopuser' --password 'sqooppass' --table employees --m 1 --target-dir /user/hands-on/emp_import
+
+Step 4 : Check the Data in HDFS
+hadoop fs -cat /user/hands-on/emp_import/part-m-00000
+output : 
+1,Alice 
+2,Bob
