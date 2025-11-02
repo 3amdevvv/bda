@@ -1,0 +1,36 @@
+.  Select or Create a Database:
+•	This command switches to the database companydb. If it doesn't exist, MongoDB will create it when you first insert data.
+	use companydb
+2. Create a Collection (Insert Data):
+•	MongoDB creates "collections" (like SQL tables) automatically when you insert the first "document" (like an SQL row).
+•	This command inserts a single employee document into a new collection called employees.
+	db.employees.insertOne({
+  _id: 1,
+  name: "John Doe",
+  department: "IT",
+  salary: 70000,
+  projects: ["Project A", "Project B"]
+})
+3. Insert Multiple Documents:
+	db.employees.insertMany([
+  { _id: 2, name: "Jane Smith", department: "HR", salary: 65000 },
+  { _id: 3, name: "Amit Patel", department: "IT", salary: 72000, status: "Active" }
+])
+4. Read (Find) Data:
+•	Find All Documents:
+o	pretty() formats the JSON output to be readable. 
+
+	.employees.find().pretty()
+•	Find Specific Documents (Query):
+o	This finds all employees in the "IT" department.
+	db.employees.find({ department: "IT" }).pretty()
+5.  Update Data:
+•	This finds the document with _id: 2 and uses the $set operator to update the salary field.
+	db.employees.updateOne(
+  { _id: 2 },
+  { $set: { salary: 68000 } }
+)
+6.  Delete Data:
+•	This deletes the document where the name is "John Doe".
+	db.employees.deleteOne({ name: "John Doe" })
+
